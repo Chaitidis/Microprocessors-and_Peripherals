@@ -27,17 +27,17 @@ Project File Date:  04/04/2023
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(7): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+main.c(8): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
 int main(){
         ^
          void
-main.c(33): warning: 'return' will never be executed [-Wunreachable-code-return]
+main.c(34): warning: 'return' will never be executed [-Wunreachable-code-return]
         return 0;
                ^
 2 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=21816 RO-data=1280 RW-data=16 ZI-data=1912  
+Program Size: Code=20216 RO-data=1264 RW-data=16 ZI-data=1912  
 ".\Objects\keil_2nd.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -81,12 +81,12 @@ Package Vendor: Keil
       Source file:   Source/retarget_io.c
 
    * Component: Keil::Device:Startup:2.6.3
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
       Source file:   MDK/Device/Source/ARM/STM32F411xx_OPT.s
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f411xe.s
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -11,8 +11,8 @@ int main(){
 	int character_value[26] = {10,42,12,21,7,5,67,48,69,2,36,3,19,1,14,51,71,8,26,54,75,15,6,59,13,25};
 	int result;
 	
-	uart_init(115200);
-	uart_enable();
+	//uart_init(115200);
+	//uart_enable();
 	
 	while(1){
 		printf("Enter a string: ");
@@ -26,8 +26,8 @@ int main(){
 		result = factorial(result);
 		
 		printf("\nResult is: %d\n", result);
-		sprintf(str,"Result is: %d\n", result);
-		uart_print(str);
+		//sprintf(str,"Result is: %d\n", result);
+		//uart_print(str);
 
 	}
 	
