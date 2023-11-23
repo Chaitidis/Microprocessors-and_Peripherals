@@ -15,7 +15,7 @@
 ## Description
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In this lab we are asked to implement a routine in assembly of an ARM microcontroller using the Keil tools. Programming in assembly involves generating the hash of an alphanumeric. To implement this we also had to create a program in C and then we call the subroutines to compute the hash, which are written in assembly. The result is displayed via UART using the appropriate function.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The implementation of the requests is done using 3 Script Assembly and 1 Script C, each for the implementation of one request of the task. This results in the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The implementation of the requests is done using 3 Assembly Scripts and 1 C Script, each for the implementation of one request of the task. The results are in the following:
 * factorial.s  
 * ascii_conversion.s 
 * number_single.s 
