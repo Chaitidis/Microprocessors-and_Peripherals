@@ -1,4 +1,5 @@
-# Μικροεπεξεργαστές και Περιφερειακά (Microprocessors and Peripherals)
+# Μικροεπεξεργαστές και Περιφερειακά 
+# Microprocessors and Peripherals
 ## Εαρινό εξάμηνο (Summer Semester) 2022-2023
 ### First Lab
 --------
