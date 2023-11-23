@@ -1,8 +1,8 @@
 # Μικροεπεξεργαστές και Περιφερειακά
 ## Εαρινό εξάμηνο 2022-2023
-### Πρώτο Εργαστήριο
+### First Lab
 --------
-#### Δημήτριος Χαϊτίδης (ΑΕΜ: 9310)
+#### Δημήτριος Χαϊτίδης (Dimitrios Chaitidis) (ΑΕΜ: 9310)
 #### Email: chaitidi@ece.auth.gr
 ---------
 #### Δημήτριος Κωνσταντινίδης (ΑΕΜ:10106)
@@ -12,42 +12,42 @@
 
 <br/>
 
-## Περιγραφή
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Στο εργαστήριο αυτό καλούμαστε να υλοποιήσουμε μια ρουτίνα σε assembly ενός μικροελεγκτή ARM με την χρήση των εργαλείων Keil. Ο προγραμματισμός σε assembly περιλαμβάνει την δημιουργία του hash ενός αλφαριθμητικού. Για την υλοποίηση αυτού χρειάστηκε να δημιουργήσουμε και ένα πρόγραμμα στην C και στην συνέχεια καλούμε τις υπορουτίνες υπολογισμού του hash, που είναι γραμμένες σε assembly. Το αποτέλεσμα προβάλλεται μέσω της UART με χρήση της κατάλληλης συνάρτησης.
+## Description
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In this lab we are asked to implement a routine in assembly of an ARM microcontroller using the Keil tools. Programming in assembly involves generating the hash of an alphanumeric. To implement this we also had to create a program in C and then we call the subroutines to compute the hash, which are written in assembly. The result is displayed via UART using the appropriate function.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Η υλοποίηση των ζητουμένων γίνεται χρησιμοποιώντας 3 Script Assembly και 1 Script C, κάθε ένα για την υλοποίηση ενός ζητούμενου της εργασίας. Έτσι προκύπτουν οι παρακάτω:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The implementation of the requests is done using 3 Script Assembly and 1 Script C, each for the implementation of one request of the task. This results in the following:
 * factorial.s  
 * ascii_conversion.s 
 * number_single.s 
 * main.c
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Αρχικά στην C ορίσαμε τις απαραίτητες βιβλιοθήκες για την υλοποίηση του ζητούμενου προγράμματος όπως αυτό ορίζεται στην εργασία, δηλαδή της UART. Εκεί διαβάζουμε το αλφαριθμητικό μέσω μιας συνάρτησης scanf και ορίζουμε και τον πίνακα μετατροπής ενός χαρακτήρα στο value που δίνεται. Η UART χρησιμοποιείται για την προβολή του αποτελέσματος με την χρήση της **uart_print**,η  οποία όμως επειδή δέχεται ως όρισμα ένα αλφαριθμητικό χρησιμοποιείται προηγουμένως η sprintf για την συνένωση ενός αλφαριθμητικού με το int του αποτελέσματος σε ένα νέο αλφαριθμητικό.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First in C we defined the necessary libraries for the implementation of the requested program as defined in the paper, namely UART. There we read the alphanumeric through a scanf function and also define the table for converting a character to the given value. UART is used to display the result using **uart_print**,but because it takes an alphanumeric as an argument, sprintf is used beforehand to concatenate an alphanumeric with the int of the result into a new alphanumeric.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aκόμη, χρειάστηκε να γίνει η σύνδεση μεταξύ της ρουτίνας C και της Assembly, η οποία γίνεται με την χρήση των :
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, the connection between the C routine and Assembly had to be made, which is done using :
 * extern int ascii_conversion(int* result, char* str, int* character_value);
 * extern int number_single(int result);
 * extern int factorial(int result);
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Επίσης στον κώδικα της Assembly χρειάζεται να ορίσουμε τα παρακάτω (πχ για την συνάρτηση factorial σε αυτήν την περίπτωση):
-* .global factorial &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Ορίζουμε ως global για να μπορεί να καλεστεί εξωτερικά)
-* .p2align 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Γίνεται το align του location counter)
-* .type factorial ,%function (Ορισμός της συνάρτησης)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also in the Assembly code we need to define the following (e.g. for the factorial function in this case):
+* .global factorial &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(We set it as global so that it can be called externally)
+* .p2align 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (The alignment of the location counter is done)
+* .type factorial ,%function (Definition of the function)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Στο **ascii_conversion.s** γίνεται η μετατροπή του αλφαριθμητικού από τα ASCII values σε ένα ακέραιο με πρόσθεση και αφαίρεση των αντίστοιχων αριθμών για κάθε χαρακτήρα. Αν και αρχικά βρέθηκε η διεύθυνση των πινάκων με τον disassembler και γράφοταν/διαβάζονταν στην assembly οι κατάλληλες θέσεις μηνήμης. Με αυτήν την προσέγγιση αν δημιουργηθούν νέες μεταβλητές μπορεί να αλλα΄ξουν οι διευθύνσεις μνήμης κάθε μεταβλητής και να οδηγείται σε λανθασμένα αποτελέσματα. Έτσι η συνάρτηση δέχεται ως όρισμα 3 pointers, των 2 πινάκων και της τελικής διεύθυνσης αποθήκευσης του αποτελέσματος. Η διαδικασία μετατροπηής είναι η εξής:
-* Ελέγχουμε το κάθε στοιχείο του αλφαριθμητικού εάν είναι αριθμός και κατόπιν εάν αποτελεί αποδεκτό χαρακτήρα. Σε κάθε άλλη περίπτωση το “αλφαριθμητικό” αγνοείται και προχωράμε στο επόμενο. Σε περίπτωση αριθμού, αυτός αφαιρείται από το σύνολο, σε περίπτωση χαρακτήρα, προστίθεται ο ανάλογος αριθμός σύμφωνα με τον πίνακα που μας δόθηκε. Εδώ ήρθαμε αντιμέτωποι με το πώς θα πρέπει να γίνει σωστά η αναγνώριση του αλφαριθμητικού και κατόπιν να υλοποιηθεί το ζητούμενο της εργασίας. Το αλφαριθμητικό στην assembly δίνεται με έναν pointer, που δείχνει στην αρχή της πρώτης θέσης μνήμης του πίνακα και οι χαρακτήρες αναπαριστούνται από την τιμή ASCII του κάθε χαρακτήρα. Οι χαρακτήρες (λατινικοί) σε ASCII value έχουν συνεχόμενες τιμές, οπότε αφαιρώντας την πρώτη τιμή της ακολουθίας σε ASCII (του χαρακτήρα a) λαμβάνουμε την θέση του του χαρακτήρα στον πίνακα μετατροπής. Το ίδιο γίνεται και με τους αριθμούς αφαιρώντας το ASCII value του μηδενός.
-* Η διαδικασία αυτή συνεχίζεται αυξάνοντας την διεύθυνση του pointer κατά 1. Η εκτέλεση σταματαέι όταν βρεθεί τερματικός χαρακτήρας, δηλαδή το 10. Ομολογουμένως δεν ήταν ιδιαίτερα απαιτητικό.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In **ascii_conversion.s** is used to convert the alphanumeric from ASCII values to an integer by adding and subtracting the corresponding numbers for each character. Although initially the address of the tables was found with the disassembler and the appropriate memory locations were written/read in the assembly. With this approach if new variables are created the memory addresses of each variable can be changed and lead to incorrect results. So the function takes as argument 3 pointers, of the 2 tables and the final storage address of the result. The conversion procedure is as follows:
+* We check each element of the alphanumeric if it is a number and then check if it is an acceptable character. Otherwise the "alphanumeric" is ignored and we move on to the next one. In case of a number, it is subtracted from the total, in case of a character, the corresponding number is added according to the table given. Here we were confronted with how to correctly identify the alphanumeric and then implement the task at hand. The alphanumeric in the assembly is given with a pointer, pointing to the beginning of the first memory location of the table, and the characters are represented by the ASCII value of each character. The (Latin) characters in ASCII value have consecutive values, so by subtracting the first value of the sequence in ASCII (of character a) we get the character's position in the conversion table. The same is done with numbers by subtracting the ASCII value of zero.
+* This process continues by increasing the pointer address by 1. Execution stops when a terminal character is found, i.e. 10. Admittedly, it was not particularly demanding.
+* 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In **number_single.s** the process is implemented in which the digits of the number are continuously added until the result becomes a single digit. To find the consecutive digits of a number, consecutive integer divisions by 10 are performed and each time the last digit is isolated as the remainder. The quotient is the remaining digits of the number.
+The implementation of this particular script was our biggest problem. The main ideas for this were three. 
+*The *first* had to do with using the command of dividing the number by 10 to subtract the last digit and then adding it to the result.
+* The *second* had to do with using logic, i.e. using bits and instructions such as AND to isolate bytes and then adding them to the remaining digits of the number. Although it worked for some inputs, it didn't work for some others.
+* The third was the one that was finally implemented is that of consecutive subtractions of 10 until no more can be performed. The sum of the subtractions is the quotient and the remainder of the subtractions is the remainder of the division by 10. As the sum of the digits is not necessarily a one-digit number, this process is repeated until a one-digit number is obtained.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Στο **number_single.s** υλοποιείται η διαδικασία κατά την οποία γίνεται συνεχής πρόσθεση των ψηφίων του αριθμού μέχρις ότου το αποτέλεσμα να γίνει μονοψήφιο. Για την εύρεση των διαδοχικών ψηφίων ενός αριθμού, πραγματοποιούνται διαδοχικές ακέραιες διαιρέσεις με το 10 και κάθε φορά απομονώνεται ως υπόλοιπο το τελευταίο ψηφίο. Το πηλίκο είναι τα υπόλοιπα ψηφία του αριθμού.
-Η υλοποίηση του συγκεκριμένου script αποτέλεσε το μεγαλύτερο μας πρόβλημα. Οι βασικές ιδέες για το παρόν ήταν τρεις. 
-* Η *πρώτη* είχε να κάνει με χρήση της εντολής της διάιρεσης του αριθμού με το 10 για την αφαίρεση του τελευταίου ψηφίου και την πρόσθεση του κατόπιν με το αποτέλεσμα.
-* Η *δεύτερη* είχε να κάνει με την χρήση λογικής, δηλαδή με την χρήση των bits και εντολών όπως η AND για την απομόνωση των bytes και κατόπιν την πρόσθεση τους με τα υπόλοιπα ψηφία του αριθμού. Αν και λειτούργησε για κάποιες εισόδους, σε κάποιες άλλες δεν λειτούργησε.
-* Η τρίτη ήταν αυτή που τελικά υλοποιήθηκε είναι αυτή των συνεχόμενων αφαιρέσεων του 10, έως ότου να μην μπορούν να πραγματοποιηθούν άλλες. Το σύνολο των αφαιρέσεων είναι το πηλίκο και το υπόλοιπο των αφαιρέσεων είναι το υπόλοιπο της διαίρεσης με το 10. Καθώς το άθροισμα των ψηφίων δεν είναι απαραίτητα μονοψήφιος αριθμός, η διαδικασία αυτή επαναλαμβάνεται μέχρι να προκύψει μονοψήφιος αριθμός.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In **factorial.s** the factorial of the final single digit number resulting from number_single.s is implemented. The original number is held in a register, and the result is initialized to 1. We then multiply the result by the original number and then subtract a unit from it. The process is repeated until we get to 1. In the case of a negative number, the result is zero.
+Also the problems of the above script were not an inhibiting factor in its implementation, as the procedure is very simple.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Στο **factorial.s** γίνεται η υλοποίηση του παραγοντικού του τελικού μονοψήφιου αριθμού που προκύπτει από το number_single.s. Ο αρχικός αριθμός κρατείται σε έναν καταχωρητή, και το αποτέλεσμα αρχικοποιείται με 1. Στην συνέχεια πολλαπλασιάζουμε το αποτέλεσμα με τον αρχικό αριθμό και έπειτα αφαιρούμε από αυτόν μια μονάδσ. Η διαδικασία επαναλαμβάνεται έως ότου φτάσουμε στο 1. Σε περίπτωση αρνητικού αριθμού το αποτέλεσμα είναι μηδέν.
-Επίσης τα προβλήματα του παραπάνω script δεν αποτέλεσαν ανασταλτικό παράγοντα στην υλοποίηση του, καθώς η διαδικασία είναι ιδιαίτερα απλή.
-
-## Παρατηρήσεις
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Κατά την υλοποίηση της εργασίας του 1ου εργαστηρίου ήρθαμε αντιμέτωποι με ένα καινούργιο περιβάλλον εργασίας (το Keil). Εξασκήσαμε τις γνώσεις μας στην C αλλά κατά κύριο λόγω στην Assembly. Οι ρουτίνες που υλοποιηθήκαν δεν θα χαρακτηρίζονταν «δύσκολες» , ωστόσο στην προκειμένη περίπτωση η χρήση της Assembly δεν μας βοήθησε ιδιαιτέρως. Ήταν ιδιαίτερα ενδιαφέρον η πρώτη μας επαφή με τον προγραμματισμό ενός μικροελεγκτή όσο και η χρήση της UART για την επικοινωνία με αυτόν. 
+## Observations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; During the implementation of the 1st workshop project we were confronted with a new environment (Keil). We practiced our knowledge in C but mainly in Assembly. The routines implemented would not be described as "difficult" , however in this case the use of Assembly did not help us much. It was particularly interesting our first contact with programming a microcontroller as much as the use of UART to communicate with it. 
 
 
 	
